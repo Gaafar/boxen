@@ -5,7 +5,6 @@ const widestLine = require('widest-line');
 const cliBoxes = require('cli-boxes');
 const camelCase = require('camelcase');
 const ansiAlign = require('ansi-align');
-const termSize = require('term-size');
 
 const getObject = detail => {
 	let object;
@@ -73,6 +72,7 @@ module.exports = (text, options) => {
 		dimBorder: false,
 		align: 'left',
 		float: 'left',
+		termColumns: 80,
 		...options
 	};
 
@@ -112,7 +112,7 @@ module.exports = (text, options) => {
 
 	const contentWidth = widestLine(text) + padding.left + padding.right;
 	const paddingLeft = PAD.repeat(padding.left);
-	const {columns} = termSize();
+	const columns = options.termColumns;
 	let marginLeft = PAD.repeat(margin.left);
 
 	if (options.float === 'center') {
